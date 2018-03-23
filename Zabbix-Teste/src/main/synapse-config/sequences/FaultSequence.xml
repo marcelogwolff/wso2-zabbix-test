@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="FaultSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom" separator=";">
+        <property name="FaultSequence" value="sending data to zabbix"/>
+    </log>
+    <zabbix_sender.send configKey="zabbix-sender">
+        <host>name-of-host</host>
+        <item>name-of-key</item>
+        <value>value to send</value>
+    </zabbix_sender.send>
+</sequence>

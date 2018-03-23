@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="GlobalWheatherProxy" startOnLoad="true" transports="https http" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <endpoint name="endpoint_urn_uuid_9572be7d-d8d3-4735-abe8-52839e7513d8">
+            <address uri="http://www.webservicex.com/globalweather.asmx?WSDL">
+                <timeout>
+                    <duration>30000</duration>
+                    <responseAction>fault</responseAction>
+                </timeout>
+            </address>
+        </endpoint>
+        <inSequence/>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom" separator=";">
+                <property name="FaultSequence" value="sending data to zabbix"/>
+            </log>
+            <zabbix_sender.send configKey="zabbix-sender">
+                <host>name-of-host</host>
+                <item>name-of-key</item>
+                <value>value to send</value>
+            </zabbix_sender.send>
+            <makefault version="soap11">
+                <code value="soap11Env:Server" xmlns:soap11Env="http://schemas.xmlsoap.org/soap/envelope/"/>
+                <reason value="fault_string"/>
+                <detail>An error has occourred</detail>
+            </makefault>
+        </faultSequence>
+    </target>
+</proxy>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="zabbix-sender" xmlns="http://ws.apache.org/ns/synapse">
+    <zabbix_sender.init>
+        <server>localhost</server>
+        <port>10051</port>
+    </zabbix_sender.init>
+</localEntry>
